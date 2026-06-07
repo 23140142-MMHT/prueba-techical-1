@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 // Enlaces principales de navegación.
 const NAV_LINKS = [
   { href: "/robot", label: "Robot" },
+  { href: "/cad", label: "CAD 3D" },
   { href: "/subsystems", label: "Subsistemas" },
   { href: "/iterations", label: "Iteraciones" },
   { href: "/software", label: "Software" },
