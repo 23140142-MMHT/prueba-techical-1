@@ -9,6 +9,7 @@ import { mdxComponents } from "@/components/shared/MDXComponents";
 import type {
   SubsystemFrontmatter,
   SubsystemImage,
+  SubsystemFeature,
   Spec,
 } from "@/types/subsystem";
 
@@ -64,9 +65,11 @@ export async function getSubsystemMeta(
     title: fm.title ?? slug,
     slug: fm.slug ?? slug,
     icon: fm.icon ?? "cog",
+    category: fm.category ?? "mechanical",
     summary: fm.summary ?? "",
     specs: (fm.specs as Spec[]) ?? [],
     images: (fm.images as SubsystemImage[]) ?? [],
+    features: (fm.features as SubsystemFeature[]) ?? [],
     rawContent: content,
   };
 }

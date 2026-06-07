@@ -2,54 +2,57 @@
 title: Drivetrain
 slug: drivetrain
 icon: cog
-summary: Swerve drive de alta velocidad con módulos MK4i y motores Kraken X60.
+category: mechanical
+summary: Base mecanum de alta tracción con motores goBILDA Yellow Jacket.
 specs:
   - label: Tipo
-    value: Swerve Drive
-  - label: Módulos
-    value: SDS MK4i (L2)
+    value: Mecanum
   - label: Motores
-    value: 4x Kraken X60
-  - label: Velocidad máxima
-    value: 5.4 m/s
-  - label: Relación
-    value: 6.75:1
+    value: 4x goBILDA 5203 (312 RPM)
+  - label: Ruedas
+    value: 100mm Mecanum
+  - label: Encoders
+    value: Odometry pods (2 dead wheels)
+  - label: Velocidad máx.
+    value: 1.6 m/s
   - label: Peso
-    value: 22 lbs
+    value: 4.1 kg
+features:
+  - text: Base mecanum para movilidad omnidireccional y reposicionamiento rápido
+    sub:
+      - Permite alinear el turret sin reorientar todo el robot
+  - text: Odometría con 2 dead wheels + IMU para localización en el campo
+  - text: Motores goBILDA 5203 312 RPM con control closed-loop (PIDF)
+  - text: Chasis modular en perfil goBILDA para mantenimiento rápido en pits
 images:
   - src: /subsystems/drivetrain/overview.jpg
-    alt: Vista general del drivetrain
+    alt: Vista general del drivetrain con bumper
   - src: /subsystems/drivetrain/module-detail.jpg
-    alt: Detalle del módulo swerve MK4i
+    alt: Detalle de una rueda mecanum
 ---
 
 ## Decisión de diseño
 
-Elegimos un **swerve drive** porque el juego de este año premia la movilidad
-omnidireccional y la capacidad defensiva. Los módulos MK4i nos dan un centro de
-gravedad más bajo que los MK4 estándar, lo que mejora la estabilidad durante el
-contacto defensivo.
+Elegimos una **base mecanum** porque el juego de este año premia el
+reposicionamiento rápido y poder alinear el turret sin reorientar todo el robot.
+La odometría con dead wheels nos da localización precisa para el auto.
 
-> **TODO:** explica POR QUÉ elegiste este tipo de drivetrain para el juego de este año.
+> **TODO:** explica POR QUÉ elegiste este drivetrain para tu juego FTC.
 
 ## Flujo de control
 
 ```mermaid
 flowchart LR
-  J[Joystick] --> K[Kinematics]
-  K --> M1[Módulo FL]
-  K --> M2[Módulo FR]
-  K --> M3[Módulo BL]
-  K --> M4[Módulo BR]
-  G[Gyro NavX] --> K
+  J[Gamepad] --> K[Mecanum kinematics]
+  IMU[IMU] --> K
+  K --> M1[Motor FL]
+  K --> M2[Motor FR]
+  K --> M3[Motor BL]
+  K --> M4[Motor BR]
+  OD[Odometry pods] --> LOC[Localización]
 ```
-
-## Proceso de iteración
-
-Durante la temporada migramos de control open-loop a closed-loop con feedforward,
-lo que redujo el error de odometría en un 60%.
 
 ## Lecciones aprendidas
 
-- Calibrar los offsets de los encoders **antes** de cada evento ahorra horas.
-- Un firmware unificado de los Kraken evita desincronización entre módulos.
+- Calibrar los dead wheels antes de cada evento mejora mucho el auto.
+- Mantener la misma presión en las 4 ruedas evita deriva al strafear.

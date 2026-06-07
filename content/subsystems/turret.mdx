@@ -1,0 +1,56 @@
+---
+title: Turret
+slug: turret
+icon: crosshair
+category: mechanical
+summary: Turret rotativo que mantiene el shooter apuntando al objetivo mientras el robot se mueve.
+specs:
+  - label: Tipo
+    value: Turret azimutal
+  - label: Motor
+    value: 1x goBILDA 5203 (435 RPM)
+  - label: Rango
+    value: ±150°
+  - label: Reducción
+    value: Big gear 1:8 + lazy susan
+  - label: Feedback
+    value: Encoder absoluto
+  - label: Apuntado
+    value: Auto-aim por AprilTags
+features:
+  - text: Mantiene el shooter apuntando al objetivo aunque el robot se mueva
+    sub:
+      - El piloto se concentra en conducir, el turret apunta solo
+  - text: Auto-aim usando AprilTags + odometría para calcular el ángulo
+  - text: Encoder absoluto para conocer la posición del turret al encender
+  - text: Lazy susan de gran diámetro para soportar el peso del shooter
+images:
+  - src: /subsystems/turret/overview.jpg
+    alt: Vista general del turret con bumper
+  - src: /subsystems/turret/ring-detail.jpg
+    alt: Detalle del anillo del turret
+---
+
+## Decisión de diseño
+
+El **turret** desacopla el apuntado del manejo: el robot puede moverse y disparar
+al mismo tiempo. Combinado con visión (AprilTags), el shooter se mantiene alineado
+al objetivo automáticamente.
+
+> **TODO:** describe tu turret real (reducción, feedback, auto-aim).
+
+## Flujo del subsistema
+
+```mermaid
+flowchart LR
+  TAG[AprilTag] --> POSE[Pose del robot]
+  POSE --> ANG[Ángulo objetivo]
+  ENC[Encoder absoluto] --> CTRL[Control del turret]
+  ANG --> CTRL
+  CTRL --> M[Motor azimutal]
+```
+
+## Lecciones aprendidas
+
+- Un encoder absoluto evita "homing" del turret al inicio del partido.
+- Limitar el rango (±150°) evita enredar el cableado del shooter.

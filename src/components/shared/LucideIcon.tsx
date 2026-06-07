@@ -8,6 +8,8 @@ import {
   ClipboardList,
   Gauge,
   Wrench,
+  Crosshair,
+  ArrowLeftRight,
   type LucideIcon as LucideIconType,
 } from "lucide-react";
 
@@ -25,6 +27,8 @@ const ICON_MAP: Record<string, LucideIconType> = {
   "clipboard-list": ClipboardList,
   gauge: Gauge,
   wrench: Wrench,
+  crosshair: Crosshair,
+  "arrow-left-right": ArrowLeftRight,
 };
 
 /** Renderiza un icono de Lucide a partir de su nombre (string del frontmatter). */

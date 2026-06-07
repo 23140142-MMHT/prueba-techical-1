@@ -2,51 +2,53 @@
 title: Intake
 slug: intake
 icon: download
-summary: Intake de belts desplegable que recoge piezas desde el suelo en menos de 0.4s.
+category: mechanical
+summary: Intake de rodillos compliant que recoge piezas desde el suelo y las envía al transfer.
 specs:
   - label: Tipo
-    value: Belt over-the-bumper
+    value: Rodillo over-the-bumper
   - label: Motor
-    value: 1x Falcon 500
-  - label: Despliegue
-    value: Neumático (pistón)
+    value: 1x goBILDA 5203 (1150 RPM)
+  - label: Rodillos
+    value: Compliant wheels 70mm
   - label: Ancho útil
-    value: 26"
+    value: 35 cm
   - label: Tiempo de captura
-    value: < 0.4s
-  - label: Compliant wheels
-    value: 2" durómetro 35A
+    value: < 0.5s
+  - label: Sensor
+    value: Color/distancia REV
+features:
+  - text: Rodillos compliant que recogen piezas desde el suelo sin atascarse
+    sub:
+      - Funciona aunque la pieza llegue en cualquier orientación
+  - text: Montaje over-the-bumper para maximizar el ancho de captura
+  - text: Sensor de color/distancia para indexado automático hacia el transfer
+  - text: Despliegue por servo para bajar el centro de gravedad en tránsito
 images:
   - src: /subsystems/intake/overview.jpg
-    alt: Vista general del intake
+    alt: Vista general del intake con bumper
   - src: /subsystems/intake/deployed.jpg
     alt: Intake desplegado sobre el bumper
 ---
 
 ## Decisión de diseño
 
-Optamos por un **intake over-the-bumper de belts** para maximizar el ancho de
-captura sin exceder el frame perimeter. El despliegue neumático libera espacio
-interno cuando está retraído y baja el centro de gravedad en tránsito.
+Un **intake de rodillos over-the-bumper** nos da el mayor ancho de captura sin
+salir del tamaño legal. Los compliant wheels agarran la pieza venga como venga y
+la entregan directo al **transfer**.
 
-> **TODO:** describe el intake de piezas de tu robot.
+> **TODO:** describe tu intake real (motor, ruedas, despliegue).
 
 ## Flujo del subsistema
 
 ```mermaid
 flowchart LR
   P[Pieza en suelo] --> R[Rodillos compliant]
-  R --> B[Belts]
-  B --> F[Feeder al shooter]
-  S[Sensor de presencia] --> L[Lógica de retención]
+  R --> S[Sensor de color]
+  S --> T[Transfer]
 ```
-
-## Proceso de iteración
-
-La V1 usaba rodillos rígidos que rebotaban las piezas. Migramos a belts con
-compliant wheels, eliminando el rebote y subiendo la tasa de captura a >95%.
 
 ## Lecciones aprendidas
 
-- Un sensor de presencia (beam break) evita "atascos" y permite indexado automático.
-- Los compliant wheels blandos (35A) agarran mejor pero se desgastan rápido.
+- Un sensor de presencia evita doble alimentación hacia el transfer.
+- Compliant wheels blandas agarran mejor pero se desgastan: lleva repuestos.

@@ -1,0 +1,56 @@
+---
+title: Transfer
+slug: transfer
+icon: arrow-left-right
+category: mechanical
+summary: Sistema de transferencia que indexa las piezas del intake al shooter de forma controlada.
+specs:
+  - label: Tipo
+    value: Banda + indexador
+  - label: Motor
+    value: 1x goBILDA 5203 (435 RPM)
+  - label: Capacidad
+    value: 3 piezas en cola
+  - label: Sensores
+    value: 2x beam break
+  - label: Cadencia
+    value: 1 pieza / 0.4s
+  - label: Material
+    value: Banda de uretano + guías 3D
+features:
+  - text: Indexa las piezas una por una para alimentar el shooter sin atascos
+    sub:
+      - Mantiene una cola de hasta 3 piezas lista para disparar
+  - text: Dos beam breaks para contar piezas y controlar el flujo
+  - text: Sincronizado con el shooter para no alimentar hasta llegar a RPM objetivo
+  - text: Guías impresas en 3D que centran la pieza antes de entrar al shooter
+images:
+  - src: /subsystems/transfer/overview.jpg
+    alt: Vista general del transfer con bumper
+  - src: /subsystems/transfer/indexer-detail.jpg
+    alt: Detalle del indexador
+---
+
+## Decisión de diseño
+
+El **transfer** es el puente entre el intake y el shooter. Su trabajo es
+**desacoplar** la recolección del disparo: el intake puede llenar la cola mientras
+el shooter dispara a su propio ritmo, manteniendo cadencia constante.
+
+> **TODO:** describe tu transfer real (banda, indexador, sensores).
+
+## Flujo del subsistema
+
+```mermaid
+flowchart LR
+  I[Intake] --> Q[Cola / banda]
+  Q --> BB1[Beam break 1]
+  BB1 --> IDX[Indexador]
+  IDX --> BB2[Beam break 2]
+  BB2 --> SH[Shooter]
+```
+
+## Lecciones aprendidas
+
+- Contar piezas con beam breaks evita disparos en vacío.
+- Un buffer de 2-3 piezas sube mucho la cadencia efectiva en partido.
