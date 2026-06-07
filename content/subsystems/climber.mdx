@@ -1,0 +1,53 @@
+---
+title: Climber
+slug: climber
+icon: move-up
+summary: Climber telescópico de winch para un endgame rápido y fiable.
+specs:
+  - label: Tipo
+    value: Telescópico + winch
+  - label: Motor
+    value: 1x Kraken X60
+  - label: Altura de subida
+    value: 28"
+  - label: Tiempo de escalada
+    value: ~2.5s
+  - label: Carga
+    value: 120 lbs (robot completo)
+  - label: Bloqueo
+    value: Ratchet mecánico
+images:
+  - src: /subsystems/climber/overview.jpg
+    alt: Vista general del climber
+  - src: /subsystems/climber/hook-detail.jpg
+    alt: Detalle del gancho del climber
+---
+
+## Decisión de diseño
+
+El climber combina un **brazo telescópico** con un **winch** y un ratchet mecánico
+que mantiene la posición sin consumir corriente, liberando el motor para frenado
+regenerativo. Priorizamos velocidad de escalada para asegurar puntos de endgame
+incluso con poco tiempo restante.
+
+> **TODO:** describe el mecanismo de endgame de tu robot.
+
+## Flujo del subsistema
+
+```mermaid
+flowchart LR
+  T[Trigger endgame] --> D[Despliegue telescópico]
+  D --> H[Enganche]
+  H --> W[Winch sube robot]
+  W --> R[Ratchet bloquea posición]
+```
+
+## Proceso de iteración
+
+La V1 subía en ~4.2s. Cambiamos la relación del winch y el material del gancho,
+logrando ~2.5s (+40% de velocidad) sin sacrificar fiabilidad.
+
+## Lecciones aprendidas
+
+- Un ratchet mecánico evita que el robot "ceda" si se corta la energía.
+- Practicar el enganche en la driver station reduce fallos de endgame.

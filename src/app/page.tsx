@@ -1,66 +1,56 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
+import { GitCompareArrows, ArrowRight } from "lucide-react";
 
-export default function Home() {
+import { teamConfig } from "@content/config";
+import { getAllSubsystemMeta } from "@/lib/mdx";
+import { HeroSection } from "@/components/home/HeroSection";
+import { StatsBar } from "@/components/home/StatsBar";
+import { SubsystemsPreview } from "@/components/home/SubsystemsPreview";
+import { PageTransition } from "@/components/layout/PageTransition";
+import { buttonVariants } from "@/components/ui/button";
+
+export default async function Home() {
+  const subsystems = await getAllSubsystemMeta();
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
+    <PageTransition>
+      <HeroSection />
+      <StatsBar />
+      <SubsystemsPreview
+        subsystems={subsystems.map((s) => ({
+          slug: s.slug,
+          title: s.title,
+          summary: s.summary,
+          icon: s.icon,
+        }))}
+      />
+
+      {/* CTA hacia el slider de iteraciones (feature estrella) */}
+      <section className="container-binder pb-20">
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-surface to-surface-2 p-8 sm:p-12">
+          <div className="absolute inset-0 -z-10 bg-grid opacity-40" aria-hidden />
+          <div className="flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-xl space-y-3">
+              <div className="chip">
+                <GitCompareArrows className="size-3.5" /> Diseño iterativo
+              </div>
+              <h2 className="text-3xl font-bold sm:text-4xl">
+                Mira cómo evolucionó {teamConfig.robotName}
+              </h2>
+              <p className="text-muted-foreground">
+                Compara las versiones del robot lado a lado y descubre las
+                decisiones de ingeniería detrás de cada cambio.
+              </p>
+            </div>
+            <Link
+              href="/iterations"
+              className={buttonVariants({ variant: "accent", size: "lg" })}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              Ver iteraciones <ArrowRight className="size-4" />
+            </Link>
+          </div>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+    </PageTransition>
   );
 }

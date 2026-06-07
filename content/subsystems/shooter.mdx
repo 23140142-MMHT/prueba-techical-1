@@ -1,0 +1,53 @@
+---
+title: Shooter
+slug: shooter
+icon: target
+summary: Mecanismo principal de puntuación con ruedas de compresión ajustable y hood variable.
+specs:
+  - label: Tipo
+    value: Flywheel dual
+  - label: Motores
+    value: 2x Kraken X60
+  - label: RPM máx.
+    value: 6000 RPM
+  - label: Hood
+    value: Variable (servo)
+  - label: Rango efectivo
+    value: 1.5 - 6 m
+  - label: Cadencia
+    value: ~1 pieza / 0.8s
+images:
+  - src: /subsystems/shooter/overview.jpg
+    alt: Vista general del shooter
+  - src: /subsystems/shooter/flywheel-detail.jpg
+    alt: Detalle de los flywheels de compresión
+---
+
+## Decisión de diseño
+
+El shooter usa **dos flywheels contrarrotantes** con compresión ajustable para
+controlar el spin de la pieza. El hood variable nos permite ajustar el ángulo de
+salida según la distancia, manteniendo precisión en todo el rango efectivo.
+
+> **TODO:** describe el mecanismo principal de puntuación de tu robot.
+
+## Flujo del subsistema
+
+```mermaid
+flowchart LR
+  I[Intake] --> F[Feeder]
+  F --> S[Flywheels]
+  V[Vision / distancia] --> H[Hood control]
+  H --> S
+  S --> O[Pieza disparada]
+```
+
+## Proceso de iteración
+
+La V1 usaba una sola rueda y tenía dispersión inconsistente. En la V2 pasamos a
+flywheels duales, lo que mejoró la consistencia de tiro de ~70% a ~94%.
+
+## Lecciones aprendidas
+
+- Mantener los flywheels a RPM objetivo **antes** de alimentar reduce el tiempo de spin-up.
+- El compuesto de las ruedas se desgasta: lleva repuestos a cada evento.

@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🤖 FRC Technical Binder
 
-## Getting Started
+Technical Binder web para equipos de FIRST Robotics Competition. Construido con
+Next.js 16, TypeScript, Tailwind CSS v3 y un chatbot AI (Anthropic). Dark-mode
+first, responsive (móvil / iPad / desktop) y editable sin tocar código.
 
-First, run the development server:
+> Los datos de ejemplo son del **team 4414 (HighTide)**. Reemplázalos con los de
+> tu equipo siguiendo esta guía.
+
+## 🚀 Arrancar
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # build de producción (debe pasar limpio)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✏️ Qué editar TÚ (sin tocar componentes)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Archivo | Qué contiene |
+|---|---|
+| `content/config.ts` | **EMPIEZA AQUÍ.** Número, nombre, robot, colores, video reveal, redes, stats. |
+| `content/robot/overview.mdx` | Descripción general del robot, ficha técnica y estrategia. |
+| `content/subsystems/*.mdx` | Drivetrain, shooter, intake, climber: specs, diseño, diagramas. |
+| `content/software/*.mdx` | Autónomo, visión y scouting. |
+| `content/iterations/iterations.ts` | Versiones del robot para el slider de comparación. |
+| `content/team/members.ts` | Miembros del equipo. |
+| `content/team/sponsors.ts` | Patrocinadores. |
+| `content/awards/awards.ts` | Premios y logros. |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Los colores del equipo (`primaryColor`, `accentColor` en `config.ts`) alimentan
+todo el tema automáticamente.
 
-## Learn More
+## 🖼️ Imágenes que conseguir (carpeta → contenido)
 
-To learn more about Next.js, take a look at the following resources:
+| Carpeta | Qué meter |
+|---|---|
+| `public/robot/v1/`, `v2/`, `v3/` | Fotos del robot por versión (mismo encuadre para el slider). |
+| `public/subsystems/{drivetrain,shooter,intake,climber}/` | Fotos/diagramas de cada subsistema. |
+| `public/team/logo.svg` | Logo del equipo (SVG preferido). |
+| `public/team/banner.jpg` | Banner del equipo (1920×600, usado en OG). |
+| `public/team/members/` | Fotos de miembros, cuadradas 400×400 (opcional; sin foto se genera avatar). |
+| `public/sponsors/` | Logos (SVG o PNG transparente, ≥400px, nombre en minúsculas). |
+| `public/software/scouting-dashboard.png` | Screenshot de tu app de scouting. |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> Mientras no subas las fotos, el binder muestra placeholders elegantes en su lugar.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔑 Variables de entorno (`.env.local`)
 
-## Deploy on Vercel
+```bash
+ANTHROPIC_API_KEY=sk-ant-...   # activa el chatbot (console.anthropic.com)
+NEXT_PUBLIC_TEAM_NUMBER=4414
+NEXT_PUBLIC_SEASON=2026
+TBA_API_KEY=                   # opcional (The Blue Alliance)
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+El chatbot funciona sin la key, pero responderá que no está configurado hasta que
+la agregues.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ☁️ Deploy (Vercel)
+
+Importa el repo en Vercel, agrega `ANTHROPIC_API_KEY` en *Environment Variables*
+y listo. El proyecto está optimizado para Vercel (next/image, SSG, runtime Node
+para el chat).

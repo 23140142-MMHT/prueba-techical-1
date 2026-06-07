@@ -1,0 +1,21 @@
+---
+title: Visión
+icon: scan-eye
+summary: Localización con AprilTags vía Limelight 3G y detección de piezas por ML.
+---
+
+## Sistema de visión
+
+Combinamos dos pipelines de visión:
+
+1. **AprilTags** con dos cámaras **Limelight 3G** para localización absoluta en el
+   campo. Las poses se fusionan con la odometría del swerve mediante un filtro de Kalman.
+2. **Detección de objetos** (piezas de juego) con un modelo ligero corriendo on-device
+   para alinear el intake automáticamente.
+
+> **TODO:** describe tu hardware y pipeline de visión reales.
+
+## Métricas
+
+- Precisión de localización: ± 2 cm a 3 m del tag.
+- Latencia del pipeline: ~22 ms.

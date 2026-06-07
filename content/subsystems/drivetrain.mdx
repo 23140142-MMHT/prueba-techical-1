@@ -1,0 +1,55 @@
+---
+title: Drivetrain
+slug: drivetrain
+icon: cog
+summary: Swerve drive de alta velocidad con módulos MK4i y motores Kraken X60.
+specs:
+  - label: Tipo
+    value: Swerve Drive
+  - label: Módulos
+    value: SDS MK4i (L2)
+  - label: Motores
+    value: 4x Kraken X60
+  - label: Velocidad máxima
+    value: 5.4 m/s
+  - label: Relación
+    value: 6.75:1
+  - label: Peso
+    value: 22 lbs
+images:
+  - src: /subsystems/drivetrain/overview.jpg
+    alt: Vista general del drivetrain
+  - src: /subsystems/drivetrain/module-detail.jpg
+    alt: Detalle del módulo swerve MK4i
+---
+
+## Decisión de diseño
+
+Elegimos un **swerve drive** porque el juego de este año premia la movilidad
+omnidireccional y la capacidad defensiva. Los módulos MK4i nos dan un centro de
+gravedad más bajo que los MK4 estándar, lo que mejora la estabilidad durante el
+contacto defensivo.
+
+> **TODO:** explica POR QUÉ elegiste este tipo de drivetrain para el juego de este año.
+
+## Flujo de control
+
+```mermaid
+flowchart LR
+  J[Joystick] --> K[Kinematics]
+  K --> M1[Módulo FL]
+  K --> M2[Módulo FR]
+  K --> M3[Módulo BL]
+  K --> M4[Módulo BR]
+  G[Gyro NavX] --> K
+```
+
+## Proceso de iteración
+
+Durante la temporada migramos de control open-loop a closed-loop con feedforward,
+lo que redujo el error de odometría en un 60%.
+
+## Lecciones aprendidas
+
+- Calibrar los offsets de los encoders **antes** de cada evento ahorra horas.
+- Un firmware unificado de los Kraken evita desincronización entre módulos.

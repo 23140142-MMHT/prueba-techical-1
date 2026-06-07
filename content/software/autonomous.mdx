@@ -1,0 +1,22 @@
+---
+title: Autónomo
+icon: route
+summary: 4 rutas autónomas seleccionables con path planning basado en PathPlanner.
+---
+
+## Filosofía del autónomo
+
+Diseñamos rutas **modulares y seleccionables** desde el dashboard para adaptarnos
+a cualquier alianza. Cada ruta está afinada para maximizar puntos sin colisiones
+con los compañeros de alianza.
+
+Usamos **PathPlanner** para generar trayectorias suaves y **odometría fusionada**
+(encoders + gyro + visión) para corregir deriva en tiempo real.
+
+> **TODO:** describe tus rutas autónomas reales y el stack de path planning.
+
+## Stack técnico
+
+- PathPlanner 2026 para generación de trayectorias.
+- Holonomic drive controller con feedforward.
+- Corrección de pose con AprilTags (ver [Visión](#)).
